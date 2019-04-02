@@ -14,7 +14,5 @@ public class TypeCasting {
         System.out.println((char) f1);
 
         System.out.println((int) ((char) f1));
-
-
     }
 }
