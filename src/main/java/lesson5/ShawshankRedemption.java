@@ -1,5 +1,6 @@
 package lesson5;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -58,7 +59,7 @@ public class ShawshankRedemption extends BaseTest {
         }
     }
 
-    private String getTextBy(By by) {
+    protected static String getTextBy(By by) {
         return driver.findElement(by).getText();
     }
 }

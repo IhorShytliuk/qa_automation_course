@@ -1,23 +1,24 @@
 package lesson4;
 
-import lesson5.BaseTest;
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Currency extends BaseTest {
+public class Currency extends base.BaseTest {
 
     public static void main(String[] args) {
-        WebDriver driver = new BaseTest().initDriver();
+        WebDriver driver = new base.BaseTest().initDriver();
 
         String[][] bankArr = new String[][]{
                 {"pb", "https://www.privat24.ua/"},
                 {"ukrsib", "https://my.ukrsibbank.com/ru/personal/operations/currency_exchange/"},
                 {"universal", "https://www.universalbank.com.ua/"},
                 {"oshchad", "https://www.oschadbank.ua/ua"},
-                {"nbu", "https://www.bank.gov.ua/control/uk/curmetal/detail/currency?period=daily"}};
+//                {"nbu", "https://www.bank.gov.ua/control/uk/curmetal/detail/currency?period=daily"},
+        };
 
         //put rates to list
         List<BankRate> bankRates = new ArrayList<>();
@@ -31,43 +32,43 @@ public class Currency extends BaseTest {
         //calc rates sum and min/max values
         double sumBuy = 0;
         double sumSell = 0;
-        double minBuy = bankRates.get(0).getBuy();
-        double maxSell = bankRates.get(0).getSell();
+        double minSell = bankRates.get(0).getSell();
+        double maxBuy = bankRates.get(0).getBuy();
 
         for(BankRate bankRate : bankRates) {
             sumBuy += bankRate.getBuy();
             sumSell += bankRate.getSell();
 
-            minBuy = minBuy < bankRate.getBuy() ? minBuy : bankRate.getBuy();
-            maxSell = maxSell > bankRate.getSell() ? maxSell : bankRate.getSell();
+            minSell = minSell < bankRate.getSell() ? minSell : bankRate.getSell();
+            maxBuy = maxBuy > bankRate.getBuy() ? maxBuy : bankRate.getBuy();
         }
 
         //get bank names with min/max values, include case if min/max rate matches in several banks
-        List<String> minBuyBank = new ArrayList<>();
-        List<String> maxSellBank = new ArrayList<>();
+        List<String> minSellBank = new ArrayList<>();
+        List<String> maxBuyBank = new ArrayList<>();
 
         System.out.println(BankRate.getHeader());
         for(BankRate bankRate : bankRates) {
-            if(bankRate.getBuy() < minBuy) {
-                minBuyBank.clear();
-                minBuyBank.add(0, bankRate.getBankName());
-            } else if(minBuy == bankRate.getBuy()) {
-                minBuyBank.add(minBuyBank.size(), bankRate.getBankName());
+            if(bankRate.getSell() < minSell) {
+                minSellBank.clear();
+                minSellBank.add(0, bankRate.getBankName());
+            } else if(minSell == bankRate.getSell()) {
+                minSellBank.add(minSellBank.size(), bankRate.getBankName());
             }
 
-            if(bankRate.getSell() > maxSell) {
-                maxSellBank.clear();
-                maxSellBank.add(0, bankRate.getBankName());
-            } else if(maxSell == bankRate.getSell()) {
-                maxSellBank.add(maxSellBank.size(), bankRate.getBankName());
+            if(bankRate.getBuy() > maxBuy) {
+                maxBuyBank.clear();
+                maxBuyBank.add(0, bankRate.getBankName());
+            } else if(maxBuy == bankRate.getBuy()) {
+                maxBuyBank.add(maxBuyBank.size(), bankRate.getBankName());
             }
 
             System.out.println(bankRate);
         }
 
         System.out.println();
-        System.out.println("MinBuyBank: " + minBuyBank);
-        System.out.println("MaxSellBank: " + maxSellBank);
+        System.out.println("MinBuyBank: " + minSellBank);
+        System.out.println("MaxSellBank: " + maxBuyBank);
 
         System.out.println("AvgBuy: " + sumBuy / bankArr.length);
         System.out.println("AvgSell: " + sumSell / bankArr.length);
