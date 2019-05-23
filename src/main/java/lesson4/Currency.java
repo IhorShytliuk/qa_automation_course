@@ -3,13 +3,15 @@ package lesson4;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Currency extends base.BaseTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void testCurrency() {
         WebDriver driver = new base.BaseTest().initDriver();
 
         String[][] bankArr = new String[][]{
@@ -76,7 +78,7 @@ public class Currency extends base.BaseTest {
         driver.quit();
     }
 
-    private static double[] parseRate(String bank) {
+    private double[] parseRate(String bank) {
         double buy = 0;
         double sell = 0;
 

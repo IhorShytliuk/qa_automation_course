@@ -1,20 +1,20 @@
 package lesson5;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Akinator {
-    private static WebDriver driver;
+public class Akinator extends BaseTest {
 
-    public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "C:/webDrivers/chromedriver.exe");
-        driver = new ChromeDriver();
+    @Test
+    public void akinatorTest() {
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
@@ -76,19 +76,6 @@ public class Akinator {
         } while (!solved);
 
         driver.quit();
-    }
-
-    private static boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static void click(By by) {
-        driver.findElement(by).click();
     }
 
     private static boolean askYN(String s) {
