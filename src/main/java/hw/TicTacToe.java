@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    static int boardSize = 4;
+    static int boardSize = 3;
 
     public static void main(String[] args) {
 
@@ -20,7 +20,7 @@ public class TicTacToe {
             String player = players[stepCnt % 2];
             char ch = stepCnt % 2 == 0 ? 'X' : 'O';
 
-            System.out.println("Player " + player + " turn");
+            System.out.println("Step " + player + " turn");
 
             board = step(ch, board, player);
             printBoard(board);
@@ -37,10 +37,10 @@ public class TicTacToe {
         }
     }
 
-    private static String[] initPlayers() {
+    static String[] initPlayers() {
         int humansNumber;
         do {
-            System.out.println("Please type number of people (0-2): ");
+            System.out.println("Please type number of humanoids (0-2): ");
             humansNumber = new Scanner(System.in).nextInt();
         } while (!(humansNumber >= 0 && humansNumber <= 2));
 
